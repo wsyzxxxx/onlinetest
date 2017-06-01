@@ -163,7 +163,8 @@
                     myanswers = myanswers + collate + ']' + '}';
                     //document.writeln(myanswers);
 
-    				
+                    
+    				/*
     				$.getJSON(config.sendResultsURL,{test:myanswers},function(json){
     					if (json == null) {
     						alert('通讯失败！');
@@ -175,13 +176,31 @@
     						$.each(corrects,function(index,array){
     							resultSet += '<div class="result-row">' + (corrects[index] === 1 ? "<div class='correct'>#"+(index + 1)+"<span></span></div>": "<div class='wrong'>#"+(index + 1)+"<span></span></div>")+'</div>';
     						});
-                            */
+                            
     						//var resultSet = '<h2 class="qTitle">' + '您已完成考试！' + '</br> 您的分数为： ' + json + '</h2>' ;
     						//alert(json);
                             //var resultSet = '<div>1</div>';
     						//superContainer.find('.result-keeper').html(resultSet).show(500);
     					}	
     				});
+                    */
+                    try {
+                    $.ajax({
+                        data:{test:myanswers},
+                        dataType:"json",
+                        type:"post",
+                        url:"submit.php",
+                        async:"true",
+                        success:function(json){
+                            if (json != "" || json != null) {
+                                location.href="mainweb.php";
+                            }
+                        }   
+                    });
+
+                    } catch (e) {
+                        location.href="mainweb.php";
+                    }
                 }
 
                 $(this).parents('.slide-container').fadeOut(500,
