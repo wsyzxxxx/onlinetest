@@ -5,6 +5,10 @@
 
 	session_start();
 
+	if(!isset($_SESSION["id"])){
+		header("location: login.php");
+	}
+
 	$grade = get_grade_by_id($_SESSION["id"], $dbh);
 	if($grade != null){
 		header("location: mainweb.php");
